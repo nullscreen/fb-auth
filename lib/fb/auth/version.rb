@@ -1,5 +1,5 @@
 module Fb
-  module Auth
+  class Auth
     VERSION = "0.1.0"
   end
 end
