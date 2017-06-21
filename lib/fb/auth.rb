@@ -1,7 +1,7 @@
 require 'uri'
 require 'fb/config'
 
-# An Ruby client for Facebook.
+# A Ruby client for Facebook.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb
   # Provides methods to authenticate a user with the Facebook OAuth flow.

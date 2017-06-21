@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Aaron Dao"]
   spec.email         = ["aaron.dao@fullscreen.com"]
 
-  spec.summary       = %q{Ruby library to authenticate a Facebook user.}
+  spec.summary       = %q{Ruby client to authenticate a Facebook user.}
   spec.description   = %q{Fb::Auth provides methods to obtain an access token to
     manage pages of a Facebook user.}
   spec.homepage      = "https://github.com/Fullscreen/fb-auth"
