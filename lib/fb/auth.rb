@@ -1,5 +1,4 @@
 require 'uri'
-require 'fb/config'
 
 # A Ruby client for Facebook.
 # @see http://www.rubydoc.info/gems/Fb/
@@ -25,7 +24,7 @@ module Fb
   private
     def url_params
       {}.tap do |params|
-        params[:client_id] = Fb.configuration.client_id
+        params[:client_id] = ENV['FB_CLIENT_ID']
         params[:scope] = :manage_pages
         params[:redirect_uri] = @redirect_uri
       end

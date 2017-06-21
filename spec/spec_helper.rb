@@ -1,6 +1,7 @@
 ENV['FB_CLIENT_ID']='000000TEST_ID00000'
-ENV['FB_CLIENT_SECRET']='00000TEST_SECRET00000'
+
 require "bundler/setup"
+require "fb/auth"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -14,9 +15,3 @@ RSpec.configure do |config|
   end
 end
 
-require "fb/auth"
-
-Fb.configure do |config|
-  config.client_id = ENV['FB_CLIENT_ID']
-  config.client_secret = ENV['FB_CLIENT_SECRET']
-end
