@@ -2,6 +2,13 @@
 
 Fb::Auth can authenticate a Facebook user and return an access token with permission to manage pages of that user.
 
+[![Build Status](http://img.shields.io/travis/Fullscreen/fb-auth/master.svg)](https://travis-ci.org/Fullscreen/fb-auth)
+[![Coverage Status](http://img.shields.io/coveralls/Fullscreen/fb-auth/master.svg)](https://coveralls.io/r/Fullscreen/fb-auth)
+[![Dependency Status](http://img.shields.io/gemnasium/Fullscreen/fb-auth.svg)](https://gemnasium.com/Fullscreen/fb-auth)
+[![Code Climate](http://img.shields.io/codeclimate/github/Fullscreen/fb-auth.svg)](https://codeclimate.com/github/Fullscreen/fb-auth)
+[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://www.rubydoc.info/gems/fb-auth/frames)
+[![Gem Version](http://img.shields.io/gem/v/fb-auth.svg)](http://rubygems.org/gems/fb-auth)
+
 The **source code** is available on [GitHub](https://github.com/Fullscreen/fb-auth) and the **documentation** on [RubyDoc](http://www.rubydoc.info/gems/fb-auth/frames).
 
 ### Installing and Configuring Fb::Auth
