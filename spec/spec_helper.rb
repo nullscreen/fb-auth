@@ -1,6 +1,14 @@
+require 'simplecov'
+require 'coveralls'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start
+
 ENV['FB_CLIENT_ID']='000000TEST_ID00000'
 
-require "bundler/setup"
 require "fb/auth"
 
 RSpec.configure do |config|
