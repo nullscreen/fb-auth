@@ -7,7 +7,8 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
 ]
 SimpleCov.start
 
-ENV['FB_CLIENT_ID']='000000TEST_ID00000'
+ENV['FB_CLIENT_ID']='test_id'
+ENV['FB_CLIENT_SECRET']='test_secret'
 
 require "fb/auth"
 

@@ -13,10 +13,10 @@ The **source code** is available on [GitHub](https://github.com/Fullscreen/fb-au
 
 ### Installing and Configuring Fb::Auth
 
-First, add funky to your Gemfile:
+First, add fb-auth to your Gemfile:
 
 ```ruby
-gem 'funky'
+gem 'fb-auth'
 ```
 Then run `bundle install`.
 
@@ -31,6 +31,9 @@ By default, Fb::Auth will look for the environment variables called `FB_CLIENT_I
 
 ## Usage
 
+Fb::Auth#url
+---------------------
+
 The `url` method helps you obtain a URL where to redirect users who need to
 authenticate with their Facebook account in order to use your application:
 
@@ -39,6 +42,33 @@ redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
 Fb::Auth.new(redirect_uri: redirect_uri).url
  # => https://www.facebook.com/dialog/oauth?client_id=...&scope=manage_pages&redirect_uri=https%3A%2F%2Fexample.com%2Fauth
 ```
+
+Fb::Auth#access_token
+---------------------
+
+After users have authenticated with their Facebook account, they will be
+redirected to the `redirect_uri` you indicated, with an extra `code` query
+parameter, e.g. `https://example.com/auth?code=1234#_=_`
+
+The `access_token` method allows you to get an access token of the user:
+
+```ruby
+redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
+code = '1234#_=_' # REPLACE WITH REAL ONE
+Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
+ # => "kefjej49s82hFS@2333233222FDh66"
+
+Fb::Error
+-------------
+
+`Yt::Error` will be raised whenever something goes wrong during the
+authentication process. The message of the error will include the details:
+
+```ruby
+redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
+code = 'invalid-code'
+Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
+ # => Fb::Error: Invalid verification code format.
 
 ## Development
 
