@@ -57,18 +57,20 @@ redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
 code = '1234#_=_' # REPLACE WITH REAL ONE
 Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
  # => "kefjej49s82hFS@2333233222FDh66"
+```
 
 Fb::Error
 -------------
 
-`Yt::Error` will be raised whenever something goes wrong during the
-authentication process. The message of the error will include the details:
+`Fb::Error` will be raised when an issue occurs during the Facebook authentication process. 
+The message of the error will include the details:
 
 ```ruby
 redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
 code = 'invalid-code'
 Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
  # => Fb::Error: Invalid verification code format.
+```
 
 ## Development
 
