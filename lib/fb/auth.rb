@@ -27,12 +27,12 @@ module Fb
       ).to_s
     end
 
-    # @return [String] the access token of an authenticated Facebook account.
+    # @return [String] the non-expiring access token of an authenticated Facebook account.
     def access_token
       url = url_build(
         host: 'graph.facebook.com', 
         path: '/oauth/access_token', 
-        params: token_params
+        params: long_term_token_params
       )   
       res = Net::HTTP.get_response(url)
       unless res.is_a?(Net::HTTPSuccess)
@@ -44,10 +44,23 @@ module Fb
 
   private
 
-    # @return [URI] the uri built from given params.
     def url_build(options = {})
       query = URI.encode_www_form options[:params] 
       URI::HTTPS.build(host: options[:host], path: options[:path], query: query)
+    end
+    
+    def short_term_access_token
+      url = url_build(
+        host: 'graph.facebook.com', 
+        path: '/oauth/access_token', 
+        params: short_term_token_params
+      )   
+      res = Net::HTTP.get_response(url)
+      unless res.is_a?(Net::HTTPSuccess)
+        message = JSON.parse(res.body)["error"]["message"]
+        raise Fb::Error, message
+      end
+      JSON.parse(res.body)["access_token"]
     end
 
     def url_params
@@ -58,12 +71,21 @@ module Fb
       end
     end
 
-    def token_params
+    def short_term_token_params
       {}.tap do |params|
         params[:client_id] = ENV['FB_CLIENT_ID']
         params[:client_secret] = ENV['FB_CLIENT_SECRET']
         params[:redirect_uri] = @redirect_uri
         params[:code] = @code
+      end
+    end
+
+    def long_term_token_params
+      {}.tap do |params|
+        params[:client_id] = ENV['FB_CLIENT_ID']
+        params[:client_secret] = ENV['FB_CLIENT_SECRET']
+        params[:grant_type] = :fb_exchange_token
+        params[:fb_exchange_token] = short_term_access_token
       end
     end
   end
