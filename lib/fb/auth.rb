@@ -44,6 +44,7 @@ module Fb
 
   private
 
+    # @return [URI] the uri built from given params.
     def url_build(options = {})
       query = URI.encode_www_form options[:params] 
       URI::HTTPS.build(host: options[:host], path: options[:path], query: query)
