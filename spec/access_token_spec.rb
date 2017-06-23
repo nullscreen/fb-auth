@@ -17,10 +17,12 @@ RSpec.describe 'Fb::Auth#access_token' do
     end
 
     before do
+      # Mock test for two GET requests: 
+      # a call for short-term access token and another for long-term access token.
       valid_body = %Q{{"access_token":"#{access_token}","token_type":"bearer"}}
       valid_response = Net::HTTPSuccess.new(nil, nil, nil)
-      expect(valid_response).to receive(:body).and_return valid_body
-      expect(Net::HTTP).to receive(:get_response).and_return valid_response
+      expect(valid_response).to receive(:body).twice.and_return valid_body
+      expect(Net::HTTP).to receive(:get_response).twice.and_return valid_response
     end
   end
 end

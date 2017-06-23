@@ -24,10 +24,8 @@ Fb::Auth will require an Client ID and an Client Secret which you can obtain aft
 
 By default, Fb::Auth will look for the environment variables called `FB_CLIENT_ID` and `FB_CLIENT_SECRET`. You can put those keys in your `.bash_profile` and Fb::Auth will work.
 
-    ```
     export FB_CLIENT_ID="YourAppID"
     export FB_CLIENT_SECRET="YourAppSecret"
-    ```
 
 ## Usage
 
@@ -50,7 +48,7 @@ After users have authenticated with their Facebook account, they will be
 redirected to the `redirect_uri` you indicated, with an extra `code` query
 parameter, e.g. `https://example.com/auth?code=1234#_=_`
 
-The `access_token` method allows you to get an access token of the user:
+The `access_token` method allows you to get a non-expiring access token of the user:
 
 ```ruby
 redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
