@@ -9,20 +9,13 @@ RSpec.describe 'Fb::User#pages' do
   end
 
   context 'given a valid access_token' do
-    user = Fb::User.new 'valid_token'
+    user = Fb::User.new ENV['FB_TEST_ACCESS_TOKEN']
 
     it 'returns an array of pages' do
       expect(user.pages).to be_a(Array)
       expect(user.pages).to all(be_a Fb::Page)
-      expect(user.pages.first.id).to eq '1234'
-      expect(user.pages.first.name).to eq 'test'
-    end
-
-    before :each do
-      valid_body = %Q{{"data":[{"name": "test", "id": "1234"}, {"name": "test2", "id": "1245"}], "paging": {}}}
-      valid_response = Net::HTTPSuccess.new(nil, nil, nil)
-      expect(valid_response).to receive(:body).and_return valid_body
-      expect(Net::HTTP).to receive(:get_response).and_return valid_response
+      expect(user.pages.first.id).to be_a(String)
+      expect(user.pages.first.name).to be_a(String)
     end
   end
 end
