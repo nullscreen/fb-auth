@@ -57,10 +57,23 @@ Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
  # => "kefjej49s82hFS@2333233222FDh66"
 ```
 
+Fb::User#pages
+---------------------
+
+Once you have successfully obtain an access token, you can fetch the pages managed
+by that access token. Calling `Fb::User.new(access_token).pages' will return an
+array of type Fb::Page, each with an id and name.
+
+```ruby
+access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
+Fb::User.new(access_token).pages
+ # => [#<Fb::Page: @name="sample1", @id="1234">, #<Fb::Page: @name="sample2", @id="5678">]
+```
+
 Fb::Error
 -------------
 
-`Fb::Error` will be raised when an issue occurs during the Facebook authentication process. 
+`Fb::Error` will be raised when an issue occurs during the Facebook authentication process.
 The message of the error will include the details:
 
 ```ruby

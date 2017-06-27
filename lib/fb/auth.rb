@@ -1,14 +1,14 @@
 require 'fb/request'
-# A Ruby client for Facebook.
+# Ruby client to authenticate a Facebook user.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb
   # Provides methods to authenticate a user with the Facebook OAuth flow.
   # @see https://developers.facebook.com/docs/facebook-login
   class Auth
     # @param [Hash] options the options to initialize an instance of Fb::Auth.
-    # @option options [String] :redirect_uri The URI to redirect users to
+    # @option [String] :redirect_uri The URI to redirect users to
     #   after they have completed the Facebook OAuth flow.
-    # @option options [String] :code A single-use authorization code provided
+    # @option [String] :code A single-use authorization code provided
     #   by Facebook OAuth to obtain an access token.
     def initialize(options = {})
       @redirect_uri = options[:redirect_uri]
@@ -57,3 +57,4 @@ module Fb
     end
   end
 end
+
