@@ -11,6 +11,8 @@ ENV['FB_CLIENT_ID']='test_id'
 ENV['FB_CLIENT_SECRET']='test_secret'
 
 require "fb/auth"
+require "fb/user"
+require "fb/page"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -23,4 +25,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-

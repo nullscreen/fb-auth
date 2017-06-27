@@ -10,7 +10,9 @@ module Fb
       @host = options.fetch :host, 'graph.facebook.com'
       @path = options[:path]
       @params = options.fetch :params, {}
-      @params.merge!(client_id: ENV['FB_CLIENT_ID'])
+      unless @params.include? :access_token
+        @params.merge!(client_id: ENV['FB_CLIENT_ID'])
+      end
     end
 
     def url
