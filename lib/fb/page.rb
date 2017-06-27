@@ -17,5 +17,10 @@ module Fb
       @name = options["name"]
       @id = options["id"]
     end
+
+    # @return [String] the representation of the page.
+    def to_s
+      "#<#{self.class.name} id=#{@id}, name=#{@name}>"
+    end
   end
 end

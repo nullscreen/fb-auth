@@ -17,7 +17,7 @@ RSpec.describe 'Fb::Auth#access_token' do
     end
 
     before do
-      # Mock test for two GET requests: 
+      # Mock test for two GET requests:
       # a call for short-term access token and another for long-term access token.
       valid_body = %Q{{"access_token":"#{access_token}","token_type":"bearer"}}
       valid_response = Net::HTTPSuccess.new(nil, nil, nil)
