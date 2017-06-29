@@ -1,3 +1,4 @@
+require 'date'
 # Ruby client to authenticate a Facebook user.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb
@@ -24,3 +25,4 @@ module Fb
     end
   end
 end
+

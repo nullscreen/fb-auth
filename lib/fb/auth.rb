@@ -22,7 +22,7 @@ module Fb
 
     # @return [String] the non-expiring access token of an authenticated Facebook account.
     def access_token
-      response_body = Fb::Request.new(path: '/oauth/access_token', 
+      response_body = Fb::Request.new(path: '/oauth/access_token',
       params: long_term_token_params).run
       response_body["access_token"]
     end
@@ -30,13 +30,13 @@ module Fb
   private
 
     def short_term_access_token
-      response_body = Fb::Request.new(path: '/oauth/access_token', 
+      response_body = Fb::Request.new(path: '/oauth/access_token',
       params: short_term_token_params).run
       response_body["access_token"]
     end
 
     def url_options
-      url_params = {scope: :manage_pages, redirect_uri: @redirect_uri}
+      url_params = {scope: 'email,manage_pages', redirect_uri: @redirect_uri}
       {host: 'www.facebook.com', path: '/dialog/oauth', params: url_params}
     end
 

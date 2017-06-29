@@ -61,13 +61,24 @@ Fb::User#pages
 ---------------------
 
 Once you have successfully obtain an access token, you can fetch the pages managed
-by that access token. Calling `Fb::User.new(access_token).pages' will return an
+by that access token. Calling `Fb::User.new(access_token).pages` will return an
 array of type Fb::Page, each with an id and name.
 
 ```ruby
 access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 Fb::User.new(access_token).pages
  # => [#<Fb::Page: @name="sample1", @id="1234">, #<Fb::Page: @name="sample2", @id="5678">]
+```
+
+Fb::User#email
+---------------------
+
+Similarly, you can get the email of the user by calling `Fb::User.new(access_token).email`.
+
+```ruby
+access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
+Fb::User.new(access_token).email
+ # => "john.smith@example.com"
 ```
 
 Fb::Error
@@ -86,7 +97,9 @@ Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
-If you woule like to run tests for Fb::Auth, please set a long-term access token for a user that manages at least one page:
+If you would like to run tests for Fb::Auth, please obtain a long-term access token that manages at least one page
+and has permission to read your Facebook email (set scope to include `email` and `manage_pages`). Then set the token as
+as an environment variable:
 
     export FB_TEST_ACCESS_TOKEN="YourToken"
 
