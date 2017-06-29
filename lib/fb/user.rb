@@ -10,10 +10,20 @@ module Fb
       @access_token = access_token
     end
 
+    # @return [String] the email of the Facebook user.
+    def email
+      @email ||= begin
+        response_body = Fb::Request.new(path: '/me',
+          params: {fields: :email, access_token: @access_token}).run
+        response_body["email"]
+      end
+    end
+
     # @return [Array] a collection of pages available to the given access token.
     def pages
       @pages ||= begin
-        response_body = Fb::Request.new(path: '/me/accounts', params: {access_token: @access_token}).run
+        response_body = Fb::Request.new(path: '/me/accounts',
+          params: {access_token: @access_token}).run
         response_body["data"].map do |page_data|
           Fb::Page.new page_data
         end
