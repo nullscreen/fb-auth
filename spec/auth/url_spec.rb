@@ -14,7 +14,7 @@ RSpec.describe 'Fb::Auth#url' do
     end
 
     it 'includes the client ID' do
-      expect(auth.url).to include "client_id=#{Fb.configuration.fb_client_id}"
+      expect(auth.url).to include "client_id=#{Fb.configuration.client_id}"
     end
 
     it 'includes the scope' do

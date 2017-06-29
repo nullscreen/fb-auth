@@ -11,7 +11,7 @@ module Fb
       @path = options[:path]
       @params = options.fetch :params, {}
       unless @params.include? :access_token
-        @params.merge!(client_id: ENV['FB_CLIENT_ID'])
+        @params.merge!(client_id: Fb.configuration.client_id)
       end
     end
 
