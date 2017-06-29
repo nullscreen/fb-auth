@@ -42,7 +42,7 @@ module Fb
 
     def short_term_token_params
       {}.tap do |params|
-        params[:client_secret] = ENV['FB_CLIENT_SECRET']
+        params[:client_secret] = Fb.configuration.fb_client_id
         params[:redirect_uri] = @redirect_uri
         params[:code] = @code
       end
@@ -50,11 +50,10 @@ module Fb
 
     def long_term_token_params
       {}.tap do |params|
-        params[:client_secret] = ENV['FB_CLIENT_SECRET']
+        params[:client_secret] = Fb.configuration.fb_client_secret
         params[:grant_type] = :fb_exchange_token
         params[:fb_exchange_token] = short_term_access_token
       end
     end
   end
 end
-
