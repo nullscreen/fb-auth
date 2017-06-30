@@ -6,8 +6,8 @@ require "fb/auth/version"
 Gem::Specification.new do |spec|
   spec.name          = "fb-auth"
   spec.version       = Fb::Auth::VERSION
-  spec.authors       = ["Aaron Dao"]
-  spec.email         = ["aaron.dao@fullscreen.com"]
+  spec.authors       = ['Aaron Dao', 'Claudio Baccigalupo']
+  spec.email         = ['aaron.dao@fullscreen.com', 'claudio@fullscreen.net']
 
   spec.summary       = %q{Ruby client to authenticate a Facebook user.}
   spec.description   = %q{Fb::Auth provides methods to obtain an access token to
