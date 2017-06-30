@@ -15,7 +15,7 @@ module Fb
   # convention is to use [Fb.configure].
   #
   # @example
-  #     Fb.configuration.fb_client_id = 1234
+  #     Fb.configuration.client_id = 1234
   def self.configuration
     @configuration ||= Configuration.new
   end
@@ -25,7 +25,7 @@ module Fb
   #
   # @example
   #     Fb.configure do |config|
-  #       config.fb_client_id = 1234
+  #       config.client_id = 1234
   #     end
   def self.configure
     yield(configuration) if block_given?
