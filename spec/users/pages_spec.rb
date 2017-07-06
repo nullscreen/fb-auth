@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe 'Fb::User#pages' do
-  context 'given an invalid valid access token' do
+  context 'given an invalid access token' do
     it 'raises Fb::Error' do
       user = Fb::User.new 'invalid_token'
       expect{user.pages}.to raise_error Fb::Error

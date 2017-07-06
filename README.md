@@ -10,7 +10,6 @@ Fb::Auth can authenticate a Facebook user and return an access token with permis
 [![Gem Version](http://img.shields.io/gem/v/fb-auth.svg)](http://rubygems.org/gems/fb-auth)
 
 The **source code** is available on [GitHub](https://github.com/Fullscreen/fb-auth) and the **documentation** on [RubyDoc](http://www.rubydoc.info/gems/fb-auth/frames).
-
 ### Installing and Configuring Fb::Auth
 
 First, add fb-auth to your Gemfile:
@@ -67,7 +66,7 @@ array of type Fb::Page, each with an id and name.
 ```ruby
 access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 Fb::User.new(access_token).pages
- # => [#<Fb::Page: @name="sample1", @id="1234">, #<Fb::Page: @name="sample2", @id="5678">]
+ # => [#<Fb::Page: id="1234", name="sample1">, #<Fb::Page: id="5678", name="sample2">]
 ```
 
 Fb::User#email
@@ -80,6 +79,21 @@ access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 Fb::User.new(access_token).email
  # => "john.smith@example.com"
 ```
+
+Fb::Page#insights
+---------------------
+
+For each page object created, you can get these pre-defined metrics: page_views_total, page_fan_adds_unique, page_engaged_users, page_video_views. The insights method will fetch the cumulative value of these metrics 7 days prior to two weeks ago (e.g. if today is July 6, 2017, the value of the metric will be for the 7 days prior to and ending on June 22, 2017). The selection of metrics and aggregate period will be options in a future patch.
+
+```ruby
+Fb::User.new('token').pages.insights
+ # => {"page_fan_adds_unique"=>#<Fb::Metric:0x123abc
+ @name="page_fans", @description="Weekly: The
+ number of new people who have liked your Page (Unique Users)",
+ @value=123>,..}
+```
+
+A full list of page/insights metrics are available at [metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics).
 
 Fb::Error
 -------------
