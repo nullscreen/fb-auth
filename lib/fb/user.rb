@@ -25,9 +25,12 @@ module Fb
         response_body = Fb::Request.new(path: '/me/accounts',
           params: {access_token: @access_token}).run
         response_body["data"].map do |page_data|
-          Fb::Page.new page_data
+          Fb::Page.new page_data.merge('user' => self)
         end
       end
     end
+
+  private
+    attr_reader :access_token
   end
 end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'Fb::Auth#to_s' do
+RSpec.describe 'Fb::Page#to_s' do
   page = Fb::Page.new("name"=>"test", "id"=>"1234")
 
   it 'returns the string represenation' do
