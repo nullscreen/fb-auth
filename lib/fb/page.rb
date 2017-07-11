@@ -22,6 +22,11 @@ module Fb
       @user = options["user"]
     end
 
+    # @param [Hash] options to customize the insights returned from the API.
+    # @option [String] :since The lower bound of the time range to consider.
+    # @option [String] :period The aggregation period (must be available to all
+    #   given metrics).
+    # @option [Array<String, Symbol>] :metric A list of metrics.
     # @return [Hash] a collection of metrics with metric name as key
     #   and metric object as value.
     # @example
@@ -30,15 +35,10 @@ module Fb
     #   @name="page_fans", @description="Weekly: The
     #   number of new people who have liked your Page (Unique Users)",
     #   @value=123>,..}
-    def insights
-      @insights ||= begin
-        response_body = Fb::Request.new(
-          path: "/v2.9/#{@id}/insights",
-          params: insights_params).run
-        response_body["data"].map do |metric_data|
-          [metric_data["name"], Fb::Metric.new(metric_data)]
-        end.to_h
-      end
+    def insights(options = {})
+      fetch_insights(options)["data"].map do |metric_data|
+        [metric_data["name"], Fb::Metric.new(metric_data)]
+      end.to_h
     end
 
     # @return [String] the representation of the page.
@@ -48,15 +48,13 @@ module Fb
 
   private
 
-    def insights_params
-      {}.tap do |params|
-        params[:since] = (Time.now - 14 * 86400).strftime("%Y-%m-%d")
-        params[:until] = Date.parse(params[:since]) + 1
-        params[:period] = :week
-        params[:metric] = 'page_views_total,page_fan_adds_unique,
-          page_engaged_users,page_video_views'
-        params[:access_token] = @user.send(:access_token)
-      end
+    def fetch_insights(options)
+      insights_params = options.merge(metric: options[:metric].join(","),
+        access_token: @user.send(:access_token))
+      Fb::Request.new(
+        path: "/v2.9/#{@id}/insights",
+        params: insights_params
+      ).run
     end
   end
 end
