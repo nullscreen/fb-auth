@@ -83,17 +83,28 @@ Fb::User.new(access_token).email
 Fb::Page#insights
 ---------------------
 
-For each page object created, you can get these pre-defined metrics: page_views_total, page_fan_adds_unique, page_engaged_users, page_video_views. The insights method will fetch the cumulative value of these metrics 7 days prior to two weeks ago (e.g. if today is July 6, 2017, the value of the metric will be for the 7 days prior to and ending on June 22, 2017). The selection of metrics and aggregate period will be options in a future patch.
+For each page object, you can fetch page insights for these [available metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics). The insights method takes a hash of three options:
+
+    [String] :since The lower bound of the time range to consider.
+    [String] :period The aggregation period (must be available to all
+      given metrics).
+    [Array] :metric A list of metrics.
+
+Insights will return a hash with the name of each metric as the key and the metric object as the value.
 
 ```ruby
-Fb::User.new('token').pages.insights
+options = {
+  metric: %i(page_fan_adds_unique page_engaged_users page_views_total),
+  period: :week,
+  since: '2017-06-09' # sample date format
+}
+page = Fb::User.new('token').pages.first
+page.insights(options)
  # => {"page_fan_adds_unique"=>#<Fb::Metric:0x123abc
- @name="page_fans", @description="Weekly: The
- number of new people who have liked your Page (Unique Users)",
- @value=123>,..}
+ # @name="page_fan_adds_unique", @description="Weekly: The
+ # number of new people who have liked your Page (Unique Users)",
+ # @value=123>,..}
 ```
-
-A full list of page/insights metrics are available at [metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics).
 
 Fb::Error
 -------------
