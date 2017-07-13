@@ -1,6 +1,3 @@
-require 'date'
-require 'fb/request'
-require 'fb/metric'
 # Ruby client to authenticate a Facebook user.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb

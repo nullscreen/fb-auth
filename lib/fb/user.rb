@@ -1,6 +1,3 @@
-require 'fb/request'
-require 'fb/page'
-
 module Fb
   # Provides methods to get a collection of pages that an access token is
   # allowed to manage and get page insights on those pages.
