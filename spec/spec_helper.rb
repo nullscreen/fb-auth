@@ -8,8 +8,6 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
 SimpleCov.start
 
 require "fb/auth"
-require "fb/user"
-require "fb/page"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
