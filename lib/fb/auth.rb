@@ -1,6 +1,7 @@
 require 'fb/configuration'
 require 'fb/user'
 require 'fb/page'
+require 'fb/post'
 require 'fb/metric'
 require 'fb/request'
 # Ruby client to authenticate a Facebook user.

@@ -1,16 +1,13 @@
 # Ruby client to authenticate a Facebook user.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb
-  # Fb::Page reprensents a Facebook page.
-  # Provides methods to get/set a page's name and id.
+  # Fb::Page reprensents a Facebook page. Page provides getters for:
+  #   :name and :id
   class Page
-    # @return [String] the name of the page.
-    attr_reader :name
-
-    #@return [String] the unique id of the page.
-    attr_reader :id
+    attr_reader :name, :id
 
     # @param [Hash] options the options to initialize an instance of Fb::Page.
+    # @option [Fb::User] :user The user that manages this page.
     # @option [String] :name The name of the page.
     # @option [String] :id The unique id of the page.
     def initialize(options = {})
@@ -26,17 +23,22 @@ module Fb
     # @option [Array<String, Symbol>] :metric A list of metrics.
     # @return [Hash] a collection of metrics with metric name as key
     #   and metric object as value.
-    # @example
-    #   page = Fb::User.new('token').pages.first
-    #   page.insights(options)
-    #   => {"page_fan_adds_unique"=>#<Fb::Metric:0x123abc
-    #   @name="page_fans", @description="Weekly: The
-    #   number of new people who have liked your Page (Unique Users)",
-    #   @value=123>,..}
     def insights(options = {})
       fetch_insights(options)["data"].map do |metric_data|
         [metric_data["name"], Fb::Metric.new(metric_data)]
       end.to_h
+    end
+
+    # @param [Hash] options to customize the posts returned from the API.
+    # @option [String] :since The lower bound of the time range to consider.
+    # @option [String] :until The upper bound of the time range to consider.
+    # @option [String] :type A string indicating the type of post to fetch.
+    #   Available types: link, status, photo, video, and offer.
+    # @return [Array<Fb::Post>] a collection of posts.
+    def posts(options = {})
+      fetch_posts(options)["data"].map do |post_data|
+        Fb::Post.new(post_data.merge('page' => self))
+      end
     end
 
     # @return [String] the representation of the page.
@@ -54,8 +56,19 @@ module Fb
         access_token: @user.send(:access_token))
       Fb::Request.new(
         path: "/v2.9/#{@id}/insights",
-        params: insights_params
+        params: insights_params,
       ).run
     end
+
+    def fetch_posts(options)
+      posts_params = options.merge(
+        fields: 'message,story,permalink_url,type,created_time,properties',
+        limit: 100,
+        access_token: @user.send(:access_token)
+      )
+      Fb::Request.new(path: "/v2.9/#{@id}/posts", params: posts_params).run
+    end
+
+    attr_reader :user
   end
 end

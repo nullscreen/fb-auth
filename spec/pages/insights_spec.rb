@@ -8,7 +8,6 @@ RSpec.describe 'Fb::Page#insights' do
       since: (Time.now - 14 * 86400).strftime("%Y-%m-%d")
     }
     @page = Fb::Page.new(
-      "name" => "Games",
       "id" => "872965469547237",
       "user" => Fb::User.new(ENV['FB_TEST_ACCESS_TOKEN'])
     )
@@ -44,7 +43,6 @@ RSpec.describe 'Fb::Page#insights' do
 
   context 'given an invalid user access token' do
     page = Fb::Page.new(
-      "name" => "Games",
       "id" => "872965469547237",
       "user" => Fb::User.new('invalid_token')
     )
