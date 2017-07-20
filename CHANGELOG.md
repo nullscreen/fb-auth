@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.1.3  - 2017/07/20
+
+* [BUGFIX] Fixed `require` statement not loading for some classes.
+* [BUGFIX] Fixed typo (it's client_secret, not client_id)
+
 ## 0.1.2  - 2017/07/11
 
 * [ENHANCEMENT] `Fb::Page#insights` now takes a hash of options on method call.
