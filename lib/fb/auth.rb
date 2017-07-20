@@ -46,7 +46,7 @@ module Fb
 
     def short_term_token_params
       {}.tap do |params|
-        params[:client_secret] = Fb.configuration.client_id
+        params[:client_secret] = Fb.configuration.client_secret
         params[:redirect_uri] = @redirect_uri
         params[:code] = @code
       end
