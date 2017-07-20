@@ -4,6 +4,7 @@ require 'fb/page'
 require 'fb/post'
 require 'fb/metric'
 require 'fb/request'
+require 'fb/insight'
 # Ruby client to authenticate a Facebook user.
 # @see http://www.rubydoc.info/gems/Fb/
 module Fb

@@ -2,7 +2,7 @@ module Fb
   # Provides methods to get a collection of pages that an access token is
   # allowed to manage and get page insights on those pages.
   class User
-    # @access_token The access token returned by Facebook's OAuth flow.
+    # [String] :access_token The access token returned by Facebook's OAuth flow.
     def initialize(access_token)
       @access_token = access_token
     end

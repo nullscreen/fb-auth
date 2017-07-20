@@ -24,9 +24,8 @@ module Fb
     # @return [Hash] a collection of metrics with metric name as key
     #   and metric object as value.
     def insights(options = {})
-      fetch_insights(options)["data"].map do |metric_data|
-        [metric_data["name"], Fb::Metric.new(metric_data)]
-      end.to_h
+      options.merge!(access_token: @user.send(:access_token))
+      Insight.fetch(@id, options)[@id]
     end
 
     # @param [Hash] options to customize the posts returned from the API.
@@ -36,8 +35,11 @@ module Fb
     #   Available types: link, status, photo, video, and offer.
     # @return [Array<Fb::Post>] a collection of posts.
     def posts(options = {})
-      fetch_posts(options)["data"].map do |post_data|
-        Fb::Post.new(post_data.merge('page' => self))
+      posts = fetch_posts(options)["data"]
+      post_ids = posts.map {|post| post.values.last}
+      insights = Insight.fetch(post_ids, options.merge(post_insights_params))
+      posts.map do |post_data|
+        Fb::Post.new(post_data.merge("insights" => insights[post_data.values.last]))
       end
     end
 
@@ -48,18 +50,6 @@ module Fb
 
   private
 
-    def fetch_insights(options)
-      unless options[:metric]
-        raise Fb::Error, 'Missing required parameter: metric'
-      end
-      insights_params = options.merge(metric: options[:metric].join(","),
-        access_token: @user.send(:access_token))
-      Fb::Request.new(
-        path: "/v2.9/#{@id}/insights",
-        params: insights_params,
-      ).run
-    end
-
     def fetch_posts(options)
       posts_params = options.merge(
         fields: 'message,story,permalink_url,type,created_time,properties',
@@ -69,6 +59,16 @@ module Fb
       Fb::Request.new(path: "/v2.9/#{@id}/posts", params: posts_params).run
     end
 
-    attr_reader :user
+    def post_insights_params
+      {}.tap do |params|
+        params[:metric] = post_metrics
+        params[:period] = :lifetime
+        params[:access_token] = @user.send(:access_token)
+      end
+    end
+
+    def post_metrics
+      %i(post_video_views post_video_views_organic post_video_views_paid post_video_avg_time_watched post_engaged_users post_impressions)
+    end
   end
 end

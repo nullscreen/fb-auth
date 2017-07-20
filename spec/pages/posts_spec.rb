@@ -22,8 +22,8 @@ RSpec.describe 'Fb::Page#posts' do
         expect(post.title).to be_a(String)
         expect(post.url).to be_a(String)
         expect(post.created_time).to be_a(String)
+        expect(post.insights).to be_a(Hash)
         expect(post.type).to be_a(String)
-        expect(post.length).to be_a(String) if post.length
       end
     end
   end
