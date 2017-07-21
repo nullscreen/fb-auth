@@ -8,7 +8,6 @@ RSpec.describe 'Fb::Page#insights' do
       since: (Time.now - 14 * 86400).strftime("%Y-%m-%d")
     }
     @page = Fb::Page.new(
-      "name" => "Games",
       "id" => "872965469547237",
       "user" => Fb::User.new(ENV['FB_TEST_ACCESS_TOKEN'])
     )
@@ -30,21 +29,8 @@ RSpec.describe 'Fb::Page#insights' do
     end
   end
 
-  context 'not given any metric' do
-    options = {
-      period: :week,
-      since: (Time.now - 14 * 86400).strftime("%Y-%m-%d")
-    }
-
-    it 'raises Fb::Error' do
-      expect{@page.insights(options)}.to raise_error(Fb::Error,
-        'Missing required parameter: metric')
-    end
-  end
-
   context 'given an invalid user access token' do
     page = Fb::Page.new(
-      "name" => "Games",
       "id" => "872965469547237",
       "user" => Fb::User.new('invalid_token')
     )

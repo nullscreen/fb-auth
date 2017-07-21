@@ -106,6 +106,28 @@ page.insights(options)
  # @value=123>,..}
 ```
 
+Fb::Page#insights
+---------------------
+
+For each page object, you can also fetch the posts on the page's feed. This is limited to 100 posts starting from the `since` parameter. If there are less than 100 posts between `since` and `until`, then Facebook will return all of them. The posts method takes a hash of two options:
+
+    [String] :since The lower bound of the time range to consider.
+    [String] :until The lower bound of the time range to consider.
+
+Insights will return a collection of Fb::Post objects, each reprensenting a Facebook post. Fb::Post provides getters for:
+
+`:id`, `:title`, `:url`, `:created_time`, `:type`, `:length`, and `:insights`.
+
+
+```ruby
+options = {
+  since: '2017-06-09'
+  until: '2017-06-16'
+}
+page = Fb::User.new('token').pages.first
+page.posts(options)
+ # => [#<Fb::Post id=1234, title=test, type=video>,..]
+
 Fb::Error
 -------------
 
