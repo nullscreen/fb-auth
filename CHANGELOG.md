@@ -6,6 +6,16 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 1.0.0  - 2017/07/24
+
+This library was originally intended to provide methods to authenticate but
+has grown to include other methods to configure, get posts, insights etc.
+Most of those methods have been extracted into separate libraries.
+
+* [REMOVAL] Moved Fb::Page to fb-core gem (without insights)
+* [REMOVAL] Moved Fb::User to fb-core gem
+* [REMOVAL] Moved Fb::Configuration to fb-support gem
+
 ## 0.1.3  - 2017/07/20
 
 * [BUGFIX] Fixed `require` statement not loading for some classes.

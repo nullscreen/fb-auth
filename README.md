@@ -29,7 +29,7 @@ By default, Fb::Auth will look for the environment variables called `FB_CLIENT_I
 ## Usage
 
 Fb::Auth#url
----------------------
+------------
 
 The `url` method helps you obtain a URL where to redirect users who need to
 authenticate with their Facebook account in order to use your application:
@@ -39,6 +39,9 @@ redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
 Fb::Auth.new(redirect_uri: redirect_uri).url
  # => https://www.facebook.com/dialog/oauth?client_id=...&scope=manage_pages&redirect_uri=https%3A%2F%2Fexample.com%2Fauth
 ```
+
+Note that access is always requested with permission to access email,
+manage pages and read insights.
 
 Fb::Auth#access_token
 ---------------------
@@ -54,69 +57,6 @@ redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
 code = '1234#_=_' # REPLACE WITH REAL ONE
 Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
  # => "kefjej49s82hFS@2333233222FDh66"
-```
-
-Fb::User#pages
----------------------
-
-Once you have successfully obtain an access token, you can fetch the pages managed
-by that access token. Calling `Fb::User.new(access_token).pages` will return an
-array of type Fb::Page, each with an id and name.
-
-```ruby
-access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
-Fb::User.new(access_token).pages
- # => [#<Fb::Page: id="1234", name="sample1">, #<Fb::Page: id="5678", name="sample2">]
-```
-
-Fb::User#email
----------------------
-
-Similarly, you can get the email of the user by calling `Fb::User.new(access_token).email`.
-
-```ruby
-access_token = Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
-Fb::User.new(access_token).email
- # => "john.smith@example.com"
-```
-
-Fb::Page#insights
----------------------
-
-For each page object, you can fetch page insights for these [available metrics](https://developers.facebook.com/docs/graph-api/reference/v2.9/insights#availmetrics). The insights method takes a hash of three options:
-
-    [String] :since The lower bound of the time range to consider.
-    [String] :period The aggregation period (must be available to all
-      given metrics).
-    [Array] :metric A list of metrics.
-
-Insights will return a hash with the name of each metric as the key and the metric object as the value.
-
-```ruby
-options = {
-  metric: %i(page_fan_adds_unique page_engaged_users page_views_total),
-  period: :week,
-  since: '2017-06-09' # sample date format
-}
-page = Fb::User.new('token').pages.first
-page.insights(options)
- # => {"page_fan_adds_unique"=>#<Fb::Metric:0x123abc
- # @name="page_fan_adds_unique", @description="Weekly: The
- # number of new people who have liked your Page (Unique Users)",
- # @value=123>,..}
-```
-
-Fb::Error
--------------
-
-`Fb::Error` will be raised when an issue occurs during the Facebook authentication process.
-The message of the error will include the details:
-
-```ruby
-redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
-code = 'invalid-code'
-Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
- # => Fb::Error: Invalid verification code format.
 ```
 
 ## Development
