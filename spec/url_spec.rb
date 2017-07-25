@@ -18,7 +18,7 @@ RSpec.describe 'Fb::Auth#url' do
     end
 
     it 'includes the scope' do
-      expect(auth.url).to include "scope=email%2Cmanage_pages"
+      expect(auth.url).to include "scope=email%2Cpages_show_list%2Cread_insights"
     end
   end
 end

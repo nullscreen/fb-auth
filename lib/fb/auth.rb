@@ -40,7 +40,7 @@ module Fb
       {}.tap do |params|
         params[:client_id] = Fb.configuration.client_id
         params[:redirect_uri] = @redirect_uri
-        params[:scope] = 'email,manage_pages,read_insights'
+        params[:scope] = 'email,pages_show_list,read_insights'
       end
     end
 
