@@ -14,6 +14,12 @@ module Fb
     def initialize(options = {})
       @redirect_uri = options[:redirect_uri]
       @code = options[:code]
+      @refresh_token = options[:refresh_token]
+    end
+
+    # @return [Boolean] whether the authentication was revoked.
+    def revoke
+      !!HTTPRequest.new(revoke_options).run
     end
 
     # @return [String] the url to authenticate as a Facebook user.
@@ -42,6 +48,14 @@ module Fb
         params[:redirect_uri] = @redirect_uri
         params[:scope] = 'email,pages_show_list,read_insights'
       end
+    end
+
+    def revoke_options
+      {path: '/v2.9/me/permissions', method: :delete, params: revoke_params}
+    end
+
+    def revoke_params
+      {access_token: @refresh_token}
     end
 
     def fetch_access_token_with(params)
