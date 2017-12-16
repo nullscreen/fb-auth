@@ -11,10 +11,13 @@ module Fb
     #   after they have completed the Facebook OAuth flow.
     # @option [String] :code A single-use authorization code provided
     #   by Facebook OAuth to obtain an access token.
+    # @option [String] :refresh_token
+    # @option [Array<String>] :scope
     def initialize(options = {})
       @redirect_uri = options[:redirect_uri]
       @code = options[:code]
       @refresh_token = options[:refresh_token]
+      @scope = options[:scope]
     end
 
     # @return [Boolean] whether the authentication was revoked.
@@ -46,7 +49,7 @@ module Fb
       {}.tap do |params|
         params[:client_id] = Fb.configuration.client_id
         params[:redirect_uri] = @redirect_uri
-        params[:scope] = 'email,pages_show_list,read_insights'
+        params[:scope] = Array(@scope).join(",")
       end
     end
 
