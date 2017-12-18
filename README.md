@@ -61,9 +61,7 @@ Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. If you would like to run tests for Fb::Auth, please obtain a long-term access token that manages at least one page and has permission to read your Facebook email. (set scope to include `email`, `manage_pages`, `read_insights`.) Then set the token as an environment variable:
-
-    export FB_TEST_ACCESS_TOKEN="YourToken"
+After checking out the repo, run `bin/setup` to install dependencies.
 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -72,7 +70,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fullscreen/fb-auth. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
