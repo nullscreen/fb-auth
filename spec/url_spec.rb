@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe 'Fb::Auth#url' do
   context 'given a valid redirect URI' do
-    auth = Fb::Auth.new redirect_uri: 'http://example.com'
+    auth = Fb::Auth.new redirect_uri: 'http://example.com', scope: ['email', 'pages_show_list', 'read_insights']
 
     it 'returns a link to Facebook authentication flow' do
       expect(auth.url).to start_with 'https://www.facebook.com/dialog/oauth'

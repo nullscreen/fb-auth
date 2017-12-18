@@ -36,12 +36,12 @@ authenticate with their Facebook account in order to use your application:
 
 ```ruby
 redirect_uri = 'https://example.com/auth' # REPLACE WITH REAL ONE
-Fb::Auth.new(redirect_uri: redirect_uri).url
+Fb::Auth.new(redirect_uri: redirect_uri, scope: ["manage_pages"]).url
  # => https://www.facebook.com/dialog/oauth?client_id=...&scope=manage_pages&redirect_uri=https%3A%2F%2Fexample.com%2Fauth
 ```
 
-Note that access is always requested with permission to access email,
-manage pages and read insights.
+Note that access is requested with permission to access email, manage pages,
+read insights, et cetera. See https://developers.facebook.com/docs/facebook-login/permissions
 
 Fb::Auth#access_token
 ---------------------
@@ -62,11 +62,6 @@ Fb::Auth.new(redirect_uri: redirect_uri, code: code).access_token
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
-If you would like to run tests for Fb::Auth, please obtain a long-term access token that manages at least one page
-and has permission to read your Facebook email (set scope to include `email`, `pages_show_list`, & `read_insights`). Then set the token as
-as an environment variable:
-
-    export FB_TEST_ACCESS_TOKEN="YourToken"
 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -75,7 +70,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fullscreen/fb-auth. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
