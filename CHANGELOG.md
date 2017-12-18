@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## Unreleased
+## 1.0.0.alpha4  - 2017/12/18
 
 * [ENHANCEMENT] Set scope as variable for `Fb::Auth#url`
 
